@@ -6,6 +6,14 @@ Util = {
       delete obj[prop];
     });
   },
+  deepPush: function(obj, prop, value){
+    return CfsAutoForm.Util.deepDo(obj,prop, function(obj, prop){
+      if(!obj[prop]){
+        obj[prop] = [];
+      }
+      obj[prop].push(value);
+    })
+  },
   deepSet: function(obj, prop, value){
     return CfsAutoForm.Util.deepDo(obj, prop, function(obj, prop){
       obj[prop] = value;
@@ -16,7 +24,6 @@ Util = {
     path = path.split('.');
     for (i = 0; i < path.length - 1; i++)
       obj = obj[path[i]];
-
     return obj;
   },
   //executes closure(obj, prop) where prop might be a string of properties and array indices

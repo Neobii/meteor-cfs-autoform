@@ -66,13 +66,11 @@ Hooks = {
       // or push it into the array of IDs if it's a multiple files field.
       else {
         if (arrayFields[key]) {
-          CfsAutoForm.Util.deepFind(doc,key).push(fileObj._id);
+          CfsAutoForm.Util.deepPush(doc, key, fileObj._id);
         } else {
-          //doc[key] = fileObj._id;
           CfsAutoForm.Util.deepSet(doc,key,fileObj._id);
         }
       }
-
       // If this is the last file to be processed, pass execution back to autoform
       if (doneFiles === totalFiles) {
         // If any files failed
@@ -89,7 +87,6 @@ Hooks = {
         }
       }
     }
-
     // Loop through all hidden file fields, inserting
     // and uploading all files that have been attached to them.
     template.$('.cfsaf-hidden').each(function () {
@@ -118,6 +115,7 @@ Hooks = {
             uploadedFiles.push(fileObj);
             elem.data("cfsaf_uploaded-files", uploadedFiles);
             // call callback
+
             cb(null, fileObj, key);
           });
 
